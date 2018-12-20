@@ -1,1 +1,1 @@
-# Fastify Example TODO API
+# A Simple Fastify API Example
