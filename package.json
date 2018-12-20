@@ -1,0 +1,31 @@
+{
+  "name": "fastify-example-todo",
+  "version": "0.0.1",
+  "description": "A todo-app (API only) example in Fastify",
+  "main": "app.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "tap test/**/*.test.js",
+    "start": "fastify start -l info app.js",
+    "dev": "fastify start -l info -P app.js",
+    "mongo": "docker run -p 27017:27017 --rm mongo:4" 
+  },
+  "keywords": [],
+  "author": "Cemre Mengu <cemremengu@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "fastify": "^2.0.0-rc.1",
+    "fastify-autoload": "^0.6.0",
+    "fastify-cli": "^0.26.2",
+    "fastify-cors": "^0.2.0",
+    "fastify-helmet": "^3.0.0",
+    "fastify-mongodb": "^1.0.0",
+    "fastify-plugin": "^1.4.0"
+  },
+  "devDependencies": {
+    "standard": "^12.0.1",
+    "tap": "^12.0.0"
+  }
+}
