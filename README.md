@@ -1,1 +1,1 @@
-# A Simple Fastify API Example
+# A Simple Fastify REST API Example
