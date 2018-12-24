@@ -4,15 +4,19 @@ const schemas = require('../schemas/todo')
 
 module.exports = async function (fastify, opts) {
   fastify.get('/', { schema: schemas.getAll }, function (request, reply) {
-    // return all items
     return this.mongo.db
       .collection('todo')
       .find()
       .toArray()
   })
 
+  fastify.get('/:name', function (request, reply) {
+    return this.mongo.db
+      .collection('todo')
+      .findOne({ name: request.params.name })
+  })
+
   fastify.post('/', async function (request, reply) {
-    // create an item
     return this.mongo.db
       .collection('todo')
       .insertOne(Object.assign(request.body, { timestamp: this.timestamp(), done: false }))

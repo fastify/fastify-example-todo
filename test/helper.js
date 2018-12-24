@@ -1,5 +1,9 @@
 'use strict'
 
+const mongo = 'mongodb://localhost/todo-test'
+const MongoClient = require('mongodb').MongoClient
+const clean = require('mongo-clean')
+
 // This file contains code that we reuse
 // between our tests.
 
@@ -10,7 +14,9 @@ const App = require('../app')
 // Fill in this config with all the configurations
 // needed for testing the application
 function config () {
-  return {}
+  return {
+    mongo
+  }
 }
 
 // automatically build and tear down our instance
@@ -28,7 +34,18 @@ function build (t) {
   return app
 }
 
+async function cleandb (t) {
+  try {
+    const client = await MongoClient.connect(mongo, { w: 1, useNewUrlParser: true })
+    await clean(client.db('todo-test'))
+    client.close()
+  } catch (err) {
+    t.fail(err)
+  }
+}
+
 module.exports = {
   config,
-  build
+  build,
+  cleandb
 }
