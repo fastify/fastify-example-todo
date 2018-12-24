@@ -8,8 +8,6 @@ test('support works standalone', async (t) => {
   const fastify = Fastify()
   fastify.register(timestamp)
 
-  t.plan(1)
-
   await fastify.ready()
   const ts = fastify.timestamp()
   t.ok(new Date(ts) > 0)
