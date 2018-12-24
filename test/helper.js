@@ -38,7 +38,7 @@ async function cleandb (t) {
   try {
     const client = await MongoClient.connect(mongo, { w: 1, useNewUrlParser: true })
     await clean(client.db('todo-test'))
-    client.close()
+    await client.close()
   } catch (err) {
     t.fail(err)
   }
