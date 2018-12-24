@@ -3,7 +3,7 @@
 const { test } = require('tap')
 const { build, cleandb } = require('../helper')
 
-test('CRUD test', async (t) => {
+test('test todo list functionality', async (t) => {
   t.beforeEach(() => cleandb(t))
 
   t.test('should create an item', async (t) => {
@@ -38,7 +38,7 @@ test('CRUD test', async (t) => {
     await app.inject({
       url: '/api/todo',
       method: 'POST',
-      payload: { name: 'my-first-item' }
+      payload: { name: 'my-second-item' }
     })
 
     const res = await app.inject({
@@ -48,9 +48,14 @@ test('CRUD test', async (t) => {
     const payload = JSON.parse(res.payload)
 
     t.is(payload.length, 2)
+
     t.is(payload[0].done, false)
     t.is(payload[0].name, 'my-first-item')
     t.notSame(payload[0].timestamp, null)
+
+    t.is(payload[1].done, false)
+    t.is(payload[1].name, 'my-second-item')
+    t.notSame(payload[1].timestamp, null)
   })
 
   t.test('should mark item as done', async (t) => {
@@ -102,6 +107,21 @@ test('CRUD test', async (t) => {
 
     t.is(payload.length, 0)
     t.deepEquals(payload, [])
+  })
+
+  t.test('should give 404 if requested item does not exist', async (t) => {
+    const app = build(t)
+
+    const res = await app.inject({
+      url: '/api/todo/this-does-not-exist'
+    })
+
+    const payload = JSON.parse(res.payload)
+
+    t.is(res.statusCode, 404)
+    t.deepEquals(payload, {
+      message: 'Requested todo item does not exist'
+    })
   })
 
   t.test('should return error', async (t) => {

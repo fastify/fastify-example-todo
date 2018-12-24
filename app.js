@@ -13,6 +13,13 @@ module.exports = function (fastify, opts, next) {
   fastify.register(require('fastify-cors'))
   fastify.register(require('fastify-helmet'))
 
+  fastify.setNotFoundHandler(function (request, reply) {
+    reply
+      .code(404)
+      .type('application/json')
+      .send({ message: 'Requested todo item does not exist' })
+  })
+
   // Do not touch the following lines
 
   // This loads all plugins defined in plugins
