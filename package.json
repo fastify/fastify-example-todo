@@ -10,13 +10,13 @@
     "test": "tap test/**/*.test.js",
     "start": "fastify start -l info app.js",
     "dev": "fastify start -l info -P app.js",
-    "mongo": "docker run -p 27017:27017 --rm mongo:4" 
+    "mongo": "docker run -p 27017:27017 --rm mongo:4"
   },
   "keywords": [],
   "author": "Cemre Mengu <cemremengu@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "fastify": "^2.0.0-rc.1",
+    "fastify": "^2.0.0-rc.3",
     "fastify-autoload": "^0.6.0",
     "fastify-cli": "^0.26.2",
     "fastify-cors": "^0.2.0",

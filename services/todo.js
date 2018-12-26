@@ -4,10 +4,14 @@ const schemas = require('../schemas/todo')
 
 module.exports = async function (fastify, opts) {
   fastify.get('/', { schema: schemas.getAll }, function (request, reply) {
-    // return all items
-    return this.mongo.db
-      .collection('todo')
-      .find()
+    // return items according to limit and offset
+    const limit = request.query.limit != null ? parseInt(request.query.limit) : 0;
+    const offset = request.query.offset != null ? parseInt(request.query.offset) : 0; 
+
+    return this.mongo.db.collection('todo').find()
+      .sort({timestamp: -1})
+      .skip(offset)
+      .limit(limit)
       .toArray()
   })
 
