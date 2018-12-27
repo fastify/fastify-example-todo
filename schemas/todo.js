@@ -11,6 +11,10 @@ const getAll = { response: {
         timestamp: { type: 'number' },
         done: { type: 'boolean' }
       }
+    },
+    querystring: {
+      limit: { type: 'number' },
+      offset: { type: 'number' }
     }
   }
 } }
