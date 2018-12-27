@@ -7,9 +7,11 @@
     "test": "test"
   },
   "scripts": {
+    "pretest": "npm run lint",
     "test": "tap test/**/*.test.js",
     "start": "fastify start -l info app.js",
     "dev": "fastify start -l info -P app.js",
+    "lint": "standard --fix",
     "mongo": "docker run -p 27017:27017 --rm mongo:4"
   },
   "keywords": [],
