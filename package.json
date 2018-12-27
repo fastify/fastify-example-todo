@@ -11,8 +11,8 @@
     "test": "tap --cov test/**/*.test.js",
     "start": "fastify start -l info app.js",
     "dev": "fastify start -l info -P app.js",
-    "mongo": "docker run -p 27017:27017 --rm mongo:4",
-    "lint": "standard | snazzy"
+    "lint": "standard --fix | snazzy",
+    "mongo": "docker run -p 27017:27017 --rm mongo:4"
   },
   "keywords": [],
   "author": "Cemre Mengu <cemremengu@gmail.com>",
