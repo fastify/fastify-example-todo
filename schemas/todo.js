@@ -8,13 +8,13 @@ const getAll = { response: {
         // do not include _id field here so that it is removed from the response
         // _id: { type: 'string' },
         name: { type: 'string' },
-        timestamp: { type: 'number' },
+        timestamp: { type: 'integer' },
         done: { type: 'boolean' }
       }
     },
     querystring: {
-      limit: { type: 'number' },
-      offset: { type: 'number' }
+      limit: { type: 'integer' },
+      offset: { type: 'integer' }
     }
   }
 } }
