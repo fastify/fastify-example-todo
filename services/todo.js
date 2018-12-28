@@ -15,21 +15,21 @@ module.exports = async function (fastify, opts) {
       .toArray()
   })
 
-  fastify.post('/', async function (request, reply) {
+  fastify.post('/', { schema: schemas.insertOne }, async function (request, reply) {
     // create an item
     return this.mongo.db
       .collection('todo')
       .insertOne(Object.assign(request.body, { timestamp: this.timestamp(), done: false }))
   })
 
-  fastify.put('/:name', async function (request, reply) {
+  fastify.put('/:name', { schema: schemas.updateOne }, async function (request, reply) {
     // update an item
     return this.mongo.db
       .collection('todo')
       .findOneAndUpdate({ name: request.params.name }, { $set: { done: request.body.done } })
   })
 
-  fastify.delete('/:name', async function (request, reply) {
+  fastify.delete('/:name', { schema: schemas.deleteOne }, async function (request, reply) {
     // delete an item
     return this.mongo.db
       .collection('todo')
