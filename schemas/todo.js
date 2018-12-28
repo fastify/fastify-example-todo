@@ -21,4 +21,37 @@ const getAll = {
   }
 }
 
-module.exports = { getAll }
+const insertOne = {
+  body: {
+    type: 'object',
+    properties: {
+      name: { type: 'string' }
+    }
+  }
+}
+
+const updateOne = {
+  body: {
+    type: 'object',
+    properties: {
+      done: { type: 'boolean' }
+    }
+  },
+  params: {
+    type: 'object',
+    properties: {
+      name: { type: 'string' }
+    }
+  }
+}
+
+const deleteOne = {
+  params: {
+    type: 'object',
+    properties: {
+      name: { type: 'string' }
+    }
+  }
+}
+
+module.exports = { getAll, insertOne, updateOne, deleteOne }
