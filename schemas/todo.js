@@ -11,7 +11,7 @@ const getAll = { response: {
         timestamp: { type: 'integer' },
         done: { type: 'boolean' }
       }
-    }    
+    }
   }
 },
 querystring: {
