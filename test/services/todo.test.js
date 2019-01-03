@@ -1,11 +1,9 @@
 'use strict'
 
 const { test } = require('tap')
-const { build, cleandb } = require('../helper')
+const { build } = require('../helper')
 
 test('test todo list functionality', async (t) => {
-  t.beforeEach(() => cleandb(t))
-
   t.test('should create an item', async (t) => {
     const app = build(t)
 

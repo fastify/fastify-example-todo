@@ -1,9 +1,5 @@
 'use strict'
 
-const mongo = 'mongodb://localhost/todo-test'
-const MongoClient = require('mongodb').MongoClient
-const clean = require('mongo-clean')
-
 // This file contains code that we reuse
 // between our tests.
 
@@ -11,11 +7,42 @@ const Fastify = require('fastify')
 const fp = require('fastify-plugin')
 const App = require('../app')
 
+const clean = require('mongo-clean')
+const { MongoClient } = require('mongodb')
+const { beforeEach, tearDown } = require('tap')
+const url = 'mongodb://localhost:27017'
+const database = 'todo-test'
+
+let client
+
+beforeEach(async function () {
+  if (!client) {
+    client = await MongoClient.connect(url, {
+      w: 1,
+      useNewUrlParser: true
+    })
+  }
+  await clean(client.db(database))
+})
+
+tearDown(async function () {
+  if (client) {
+    await client.close()
+    client = null
+  }
+})
+
 // Fill in this config with all the configurations
 // needed for testing the application
 function config () {
   return {
-    mongo
+    auth: {
+      secret: 'averyverylongsecret'
+    },
+    mongo: {
+      client,
+      database
+    }
   }
 }
 
@@ -34,18 +61,4 @@ function build (t) {
   return app
 }
 
-async function cleandb (t) {
-  try {
-    const client = await MongoClient.connect(mongo, { w: 1, useNewUrlParser: true })
-    await clean(client.db('todo-test'))
-    await client.close()
-  } catch (err) {
-    t.fail(err)
-  }
-}
-
-module.exports = {
-  config,
-  build,
-  cleandb
-}
+module.exports = { build }

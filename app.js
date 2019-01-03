@@ -7,7 +7,8 @@ module.exports = function (fastify, opts, next) {
   // Place here your custom code!
 
   fastify.register(require('fastify-mongodb'), {
-    url: opts.mongo || 'mongodb://localhost/todo'
+    url: 'mongodb://localhost/todo',
+    ...opts.mongo
   })
 
   fastify.register(require('fastify-cors'))
