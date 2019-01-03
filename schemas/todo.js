@@ -6,19 +6,52 @@ const getAll = {
       type: 'array',
       items: {
         properties: {
-        // do not include _id field here so that it is removed from the response
-        // _id: { type: 'string' },
+          // do not include _id field here so that it is removed from the response
+          // _id: { type: 'string' },
           name: { type: 'string' },
           timestamp: { type: 'integer' },
           done: { type: 'boolean' }
         }
-      },
-      querystring: {
-        limit: { type: 'integer' },
-        offset: { type: 'integer' }
       }
+    }
+  },
+  querystring: {
+    limit: { type: 'integer' },
+    offset: { type: 'integer' }
+  }
+}
+
+const insertOne = {
+  body: {
+    type: 'object',
+    properties: {
+      name: { type: 'string' }
     }
   }
 }
 
-module.exports = { getAll }
+const updateOne = {
+  body: {
+    type: 'object',
+    properties: {
+      done: { type: 'boolean' }
+    }
+  },
+  params: {
+    type: 'object',
+    properties: {
+      name: { type: 'string' }
+    }
+  }
+}
+
+const deleteOne = {
+  params: {
+    type: 'object',
+    properties: {
+      name: { type: 'string' }
+    }
+  }
+}
+
+module.exports = { getAll, insertOne, updateOne, deleteOne }
