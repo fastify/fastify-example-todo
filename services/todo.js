@@ -3,7 +3,7 @@
 const schemas = require('../schemas/todo')
 
 module.exports = async function (fastify, opts) {
-  fastify.get('/', { schema: schemas.getAll }, function (request, reply) {
+  fastify.get('/', { schema: schemas.findAll }, function (request, reply) {
     const limit = parseInt(request.query.limit) || 0
     const offset = parseInt(request.query.offset) || 0
 
@@ -14,7 +14,7 @@ module.exports = async function (fastify, opts) {
       .toArray()
   })
 
-  fastify.get('/:name', async function (request, reply) {
+  fastify.get('/:name', { schema: schemas.findOne }, async function (request, reply) {
     const item = await this.mongo.db
       .collection('todo')
       .findOne({ name: request.params.name })
@@ -42,10 +42,6 @@ module.exports = async function (fastify, opts) {
     return this.mongo.db
       .collection('todo')
       .deleteOne({ name: request.params.name })
-  })
-
-  fastify.get('/error', async function (request, reply) {
-    throw new Error('boom')
   })
 }
 

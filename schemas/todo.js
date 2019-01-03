@@ -1,6 +1,6 @@
 'use strict'
 
-const getAll = {
+const findAll = {
   response: {
     200: {
       type: 'array',
@@ -18,6 +18,31 @@ const getAll = {
   querystring: {
     limit: { type: 'integer' },
     offset: { type: 'integer' }
+  }
+}
+
+const findOne = {
+  response: {
+    200: {
+      type: 'object',
+      properties: {
+        name: { type: 'string' },
+        timestamp: { type: 'integer' },
+        done: { type: 'boolean' }
+      }
+    },
+    404: {
+      type: 'object',
+      properties: {
+        message: { type: 'string' }
+      }
+    }
+  },
+  params: {
+    type: 'object',
+    properties: {
+      name: { type: 'string' }
+    }
   }
 }
 
@@ -54,4 +79,4 @@ const deleteOne = {
   }
 }
 
-module.exports = { getAll, insertOne, updateOne, deleteOne }
+module.exports = { findAll, findOne, insertOne, updateOne, deleteOne }

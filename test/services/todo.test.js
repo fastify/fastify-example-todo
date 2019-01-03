@@ -50,11 +50,11 @@ test('test todo list functionality', async (t) => {
     t.is(payload.length, 2)
 
     t.is(payload[0].done, false)
-    t.is(payload[0].name, 'my-first-item')
+    t.is(payload[0].name, 'my-second-item')
     t.notSame(payload[0].timestamp, null)
 
     t.is(payload[1].done, false)
-    t.is(payload[1].name, 'my-second-item')
+    t.is(payload[1].name, 'my-first-item')
     t.notSame(payload[1].timestamp, null)
   })
 
@@ -121,22 +121,6 @@ test('test todo list functionality', async (t) => {
     t.is(res.statusCode, 404)
     t.deepEquals(payload, {
       message: 'Requested todo item does not exist'
-    })
-  })
-
-  t.test('should return error', async (t) => {
-    const app = build(t)
-
-    const res = await app.inject({
-      url: '/api/todo/error'
-    })
-
-    const payload = JSON.parse(res.payload)
-
-    t.deepEquals(payload, {
-      error: 'Internal Server Error',
-      message: 'boom',
-      statusCode: 500
     })
   })
 })
