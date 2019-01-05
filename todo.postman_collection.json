@@ -37,7 +37,7 @@
 			"response": []
 		},
 		{
-			"name": "all",
+			"name": "read",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -46,7 +46,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/todo",
+					"raw": "http://localhost:3000/api/todo/test",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -54,7 +54,8 @@
 					"port": "3000",
 					"path": [
 						"api",
-						"todo"
+						"todo",
+						"test"
 					]
 				}
 			},
@@ -118,7 +119,7 @@
 			"response": []
 		},
 		{
-			"name": "error",
+			"name": "all",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -127,7 +128,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "http://localhost:3000/api/todo/error",
+					"raw": "http://localhost:3000/api/todo",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -135,8 +136,7 @@
 					"port": "3000",
 					"path": [
 						"api",
-						"todo",
-						"error"
+						"todo"
 					]
 				}
 			},

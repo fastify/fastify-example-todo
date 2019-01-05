@@ -7,11 +7,19 @@ module.exports = function (fastify, opts, next) {
   // Place here your custom code!
 
   fastify.register(require('fastify-mongodb'), {
-    url: 'mongodb://localhost/todo'
+    url: 'mongodb://localhost/todo',
+    ...opts.mongo
   })
 
   fastify.register(require('fastify-cors'))
   fastify.register(require('fastify-helmet'))
+
+  fastify.setNotFoundHandler(function (request, reply) {
+    reply
+      .code(404)
+      .type('application/json')
+      .send({ message: 'Requested todo item does not exist' })
+  })
 
   // Do not touch the following lines
 

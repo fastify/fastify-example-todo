@@ -7,10 +7,43 @@ const Fastify = require('fastify')
 const fp = require('fastify-plugin')
 const App = require('../app')
 
+const clean = require('mongo-clean')
+const { MongoClient } = require('mongodb')
+const { beforeEach, tearDown } = require('tap')
+const url = 'mongodb://localhost:27017'
+const database = 'todo-test'
+
+let client
+
+beforeEach(async function () {
+  if (!client) {
+    client = await MongoClient.connect(url, {
+      w: 1,
+      useNewUrlParser: true
+    })
+  }
+  await clean(client.db(database))
+})
+
+tearDown(async function () {
+  if (client) {
+    await client.close()
+    client = null
+  }
+})
+
 // Fill in this config with all the configurations
 // needed for testing the application
 function config () {
-  return {}
+  return {
+    auth: {
+      secret: 'averyverylongsecret'
+    },
+    mongo: {
+      client,
+      database
+    }
+  }
 }
 
 // automatically build and tear down our instance
@@ -28,7 +61,4 @@ function build (t) {
   return app
 }
 
-module.exports = {
-  config,
-  build
-}
+module.exports = { build }

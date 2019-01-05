@@ -3,8 +3,7 @@
 const schemas = require('../schemas/todo')
 
 module.exports = async function (fastify, opts) {
-  fastify.get('/', { schema: schemas.getAll }, function (request, reply) {
-    // return items according to limit and offset
+  fastify.get('/', { schema: schemas.findAll }, function (request, reply) {
     const limit = parseInt(request.query.limit) || 0
     const offset = parseInt(request.query.offset) || 0
 
@@ -15,30 +14,34 @@ module.exports = async function (fastify, opts) {
       .toArray()
   })
 
+  fastify.get('/:name', { schema: schemas.findOne }, async function (request, reply) {
+    const item = await this.mongo.db
+      .collection('todo')
+      .findOne({ name: request.params.name })
+
+    if (item == null) {
+      return reply.callNotFound()
+    }
+
+    return item
+  })
+
   fastify.post('/', { schema: schemas.insertOne }, async function (request, reply) {
-    // create an item
     return this.mongo.db
       .collection('todo')
       .insertOne(Object.assign(request.body, { timestamp: this.timestamp(), done: false }))
   })
 
   fastify.put('/:name', { schema: schemas.updateOne }, async function (request, reply) {
-    // update an item
     return this.mongo.db
       .collection('todo')
       .findOneAndUpdate({ name: request.params.name }, { $set: { done: request.body.done } })
   })
 
   fastify.delete('/:name', { schema: schemas.deleteOne }, async function (request, reply) {
-    // delete an item
     return this.mongo.db
       .collection('todo')
       .deleteOne({ name: request.params.name })
-  })
-
-  fastify.get('/error', async function (request, reply) {
-    // oops
-    throw new Error('boom')
   })
 }
 

@@ -8,10 +8,10 @@
   },
   "scripts": {
     "pretest": "npm run lint",
-    "test": "tap test/**/*.test.js",
+    "test": "tap --cov test/**/*.test.js",
     "start": "fastify start -l info app.js",
     "dev": "fastify start -l info -P app.js",
-    "lint": "standard --fix",
+    "lint": "standard --fix | snazzy",
     "mongo": "docker run -p 27017:27017 --rm mongo:4"
   },
   "keywords": [],
@@ -20,14 +20,18 @@
   "dependencies": {
     "fastify": "^2.0.0-rc.3",
     "fastify-autoload": "^0.6.0",
-    "fastify-cli": "^0.26.2",
-    "fastify-cors": "^0.2.0",
+    "fastify-cli": "^0.27.0",
+    "fastify-jwt": "^0.8.0",
+    "fastify-cors": "next",
     "fastify-helmet": "^3.0.0",
     "fastify-mongodb": "^1.0.0",
     "fastify-plugin": "^1.4.0"
   },
   "devDependencies": {
     "standard": "^12.0.1",
-    "tap": "^12.0.0"
+    "snazzy": "^8.0.0",
+    "tap": "^12.1.1",
+    "mongo-clean": "^2.0.0",
+    "mongodb":"^3.1.10"
   }
 }
