@@ -3,6 +3,9 @@
 const schemas = require('../schemas/todo')
 
 module.exports = async function (fastify, opts) {
+
+  fastify.addHook('preHandler', fastify.basicAuth)
+  
   fastify.get('/', { schema: schemas.findAll }, function (request, reply) {
     const limit = parseInt(request.query.limit) || 0
     const offset = parseInt(request.query.offset) || 0
