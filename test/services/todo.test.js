@@ -3,8 +3,8 @@
 const { test } = require('tap')
 const { build } = require('../helper')
 
-test('test todo list functionality', async t => {
-  t.test('should create an item', async t => {
+test('test todo list functionality', async (t) => {
+  t.test('should create an item', async (t) => {
     const app = build(t)
 
     const auth = await app.inject({
@@ -33,7 +33,7 @@ test('test todo list functionality', async t => {
     t.notSame(payload.timestamp, null)
   })
 
-  t.test('should get all items', async t => {
+  t.test('should get all items', async (t) => {
     const app = build(t)
 
     const auth = await app.inject({
@@ -75,7 +75,7 @@ test('test todo list functionality', async t => {
     t.notSame(payload[1].timestamp, null)
   })
 
-  t.test('should mark item as done', async t => {
+  t.test('should mark item as done', async (t) => {
     const app = build(t)
 
     const auth = await app.inject({
@@ -112,7 +112,7 @@ test('test todo list functionality', async t => {
     t.notSame(payload[0].timestamp, null)
   })
 
-  t.test('should delete item', async t => {
+  t.test('should delete item', async (t) => {
     const app = build(t)
 
     const auth = await app.inject({
@@ -146,7 +146,7 @@ test('test todo list functionality', async t => {
     t.deepEquals(payload, [])
   })
 
-  t.test('should give 404 if requested item does not exist', async t => {
+  t.test('should give 404 if requested item does not exist', async (t) => {
     const app = build(t)
 
     const auth = await app.inject({
@@ -169,7 +169,7 @@ test('test todo list functionality', async t => {
     })
   })
 
-  t.test('should give jwt token error', async t => {
+  t.test('should give jwt token error', async (t) => {
     const app = build(t)
 
     const res = await app.inject({
