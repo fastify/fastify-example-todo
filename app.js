@@ -21,21 +21,6 @@ module.exports = function (fastify, opts, next) {
       .send({ message: 'Requested todo item does not exist' })
   })
 
-  fastify.register(require('fastify-basic-auth'), { validate })
-
-  async function validate (username, password, req, reply) {
-
-    if(username !== 'admin' || password !== 'admin'){
-      const item = await this.mongo.db
-        .collection('users')
-        .findOne({ name: username }, { password: password })  
-
-      if (item == null || username !== item.name || password !== item.password) {
-        return new Error('Invalid username or password')
-      }
-    }
-  }
-
   // Do not touch the following lines
 
   // This loads all plugins defined in plugins

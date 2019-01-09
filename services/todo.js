@@ -3,49 +3,73 @@
 const schemas = require('../schemas/todo')
 
 module.exports = async function (fastify, opts) {
-
-  fastify.addHook('preHandler', fastify.basicAuth)
-  
-  fastify.get('/', { schema: schemas.findAll }, function (request, reply) {
-    const limit = parseInt(request.query.limit) || 0
-    const offset = parseInt(request.query.offset) || 0
-
-    return this.mongo.db.collection('todo').find()
-      .sort({ timestamp: -1 })
-      .skip(offset)
-      .limit(limit)
-      .toArray()
-  })
-
-  fastify.get('/:name', { schema: schemas.findOne }, async function (request, reply) {
-    const item = await this.mongo.db
-      .collection('todo')
-      .findOne({ name: request.params.name })
-
-    if (item == null) {
-      return reply.callNotFound()
+  fastify.get(
+    '/',
+    { schema: schemas.findAll, preHandler: [fastify.authenticate] },
+    function (request, reply) {
+      const limit = parseInt(request.query.limit) || 0
+      const offset = parseInt(request.query.offset) || 0
+      return this.mongo.db
+        .collection('todo')
+        .find()
+        .sort({ timestamp: -1 })
+        .skip(offset)
+        .limit(limit)
+        .toArray()
     }
+  )
 
-    return item
-  })
+  fastify.get(
+    '/:name',
+    { schema: schemas.findOne, preHandler: [fastify.authenticate] },
+    async function (request, reply) {
+      const item = await this.mongo.db
+        .collection('todo')
+        .findOne({ name: request.params.name })
 
-  fastify.post('/', { schema: schemas.insertOne }, async function (request, reply) {
-    return this.mongo.db
-      .collection('todo')
-      .insertOne(Object.assign(request.body, { timestamp: this.timestamp(), done: false }))
-  })
+      if (item == null) {
+        return reply.callNotFound()
+      }
 
-  fastify.put('/:name', { schema: schemas.updateOne }, async function (request, reply) {
-    return this.mongo.db
-      .collection('todo')
-      .findOneAndUpdate({ name: request.params.name }, { $set: { done: request.body.done } })
-  })
+      return item
+    }
+  )
 
-  fastify.delete('/:name', { schema: schemas.deleteOne }, async function (request, reply) {
-    return this.mongo.db
-      .collection('todo')
-      .deleteOne({ name: request.params.name })
-  })
+  fastify.post(
+    '/',
+    { schema: schemas.insertOne, preHandler: [fastify.authenticate] },
+    async function (request, reply) {
+      return this.mongo.db.collection('todo').insertOne(
+        Object.assign(request.body, {
+          timestamp: this.timestamp(),
+          done: false
+        })
+      )
+    }
+  )
+
+  fastify.put(
+    '/:name',
+    { schema: schemas.updateOne, preHandler: [fastify.authenticate] },
+    async function (request, reply) {
+      return this.mongo.db
+        .collection('todo')
+        .findOneAndUpdate(
+          { name: request.params.name },
+          { $set: { done: request.body.done } }
+        )
+    }
+  )
+
+  fastify.delete(
+    '/:name',
+    { schema: schemas.deleteOne, preHandler: [fastify.authenticate] },
+    async function (request, reply) {
+      return this.mongo.db
+        .collection('todo')
+        .deleteOne({ name: request.params.name })
+    }
+  )
 }
 
 module.exports.autoPrefix = '/todo'

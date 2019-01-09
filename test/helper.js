@@ -17,12 +17,19 @@ let client
 
 beforeEach(async function () {
   if (!client) {
-    client = await MongoClient.connect(url, {
-      w: 1,
-      useNewUrlParser: true
-    })
+    client = await MongoClient.connect(
+      url,
+      {
+        w: 1,
+        useNewUrlParser: true
+      }
+    )
   }
   await clean(client.db(database))
+  await client
+    .db(database)
+    .collection('users')
+    .insertOne({ name: 'dummy', password: 'dummy' })
 })
 
 tearDown(async function () {
