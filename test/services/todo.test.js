@@ -16,14 +16,14 @@ test('test todo list functionality', async (t) => {
 
     await app.inject({
       url: '/api/todo',
-      headers: { Authorization: 'Bearer ' + token },
+      headers: { Authorization: `Bearer ${token}` },
       method: 'POST',
       payload: { name: 'my-first-item' }
     })
 
     const res = await app.inject({
       url: '/api/todo/my-first-item',
-      headers: { Authorization: 'Bearer ' + token }
+      headers: { Authorization: `Bearer ${token}` }
     })
 
     const payload = JSON.parse(res.payload)
@@ -45,21 +45,21 @@ test('test todo list functionality', async (t) => {
 
     await app.inject({
       url: '/api/todo',
-      headers: { Authorization: 'Bearer ' + token },
+      headers: { Authorization: `Bearer ${token}` },
       method: 'POST',
       payload: { name: 'my-first-item' }
     })
 
     await app.inject({
       url: '/api/todo',
-      headers: { Authorization: 'Bearer ' + token },
+      headers: { Authorization: `Bearer ${token}` },
       method: 'POST',
       payload: { name: 'my-second-item' }
     })
 
     const res = await app.inject({
       url: '/api/todo',
-      headers: { Authorization: 'Bearer ' + token }
+      headers: { Authorization: `Bearer ${token}` }
     })
 
     const payload = JSON.parse(res.payload)
@@ -87,21 +87,21 @@ test('test todo list functionality', async (t) => {
 
     await app.inject({
       url: '/api/todo',
-      headers: { Authorization: 'Bearer ' + token },
+      headers: { Authorization: `Bearer ${token}` },
       method: 'POST',
       payload: { name: 'my-first-item' }
     })
 
     await app.inject({
       url: '/api/todo/my-first-item',
-      headers: { Authorization: 'Bearer ' + token },
+      headers: { Authorization: `Bearer ${token}` },
       method: 'PUT',
       payload: { done: true }
     })
 
     const res = await app.inject({
       url: '/api/todo',
-      headers: { Authorization: 'Bearer ' + token }
+      headers: { Authorization: `Bearer ${token}` }
     })
 
     const payload = JSON.parse(res.payload)
@@ -124,20 +124,20 @@ test('test todo list functionality', async (t) => {
 
     await app.inject({
       url: '/api/todo',
-      headers: { Authorization: 'Bearer ' + token },
+      headers: { Authorization: `Bearer ${token}` },
       method: 'POST',
       payload: { name: 'my-first-item' }
     })
 
     await app.inject({
       url: '/api/todo/my-first-item',
-      headers: { Authorization: 'Bearer ' + token },
+      headers: { Authorization: `Bearer ${token}` },
       method: 'DELETE'
     })
 
     const res = await app.inject({
       url: '/api/todo',
-      headers: { Authorization: 'Bearer ' + token }
+      headers: { Authorization: `Bearer ${token}` }
     })
 
     const payload = JSON.parse(res.payload)
@@ -158,7 +158,7 @@ test('test todo list functionality', async (t) => {
 
     const res = await app.inject({
       url: '/api/todo/this-does-not-exist',
-      headers: { Authorization: 'Bearer ' + token }
+      headers: { Authorization: `Bearer ${token}` }
     })
 
     const payload = JSON.parse(res.payload)
