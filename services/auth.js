@@ -15,7 +15,7 @@ module.exports = async function (fastify, opts) {
       user.username !== username ||
       user.password !== password
     ) {
-      return new Error('Invalid username or password')
+      reply.status(401).send({ message: 'Invalid username or password' })
     } else {
       const token = fastify.jwt.sign(
         { sub: user.username },

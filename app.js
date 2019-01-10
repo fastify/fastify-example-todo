@@ -3,7 +3,7 @@
 const path = require('path')
 const AutoLoad = require('fastify-autoload')
 
-module.exports = function (fastify, opts, next) { 
+module.exports = function (fastify, opts, next) {
   fastify
     .register(require('fastify-mongodb'), {
       url: 'mongodb://localhost/todo',

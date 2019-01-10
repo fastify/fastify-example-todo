@@ -30,7 +30,7 @@ test('test user authentication', async (t) => {
     const payload = JSON.parse(res.payload)
 
     t.notOk(payload.token)
-    t.is(res.statusCode, 500)
+    t.is(res.statusCode, 401)
     t.is(payload.message, 'Invalid username or password')
   })
 })
