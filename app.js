@@ -6,20 +6,22 @@ const AutoLoad = require('fastify-autoload')
 module.exports = function (fastify, opts, next) {
   // Place here your custom code!
 
-  fastify.register(require('fastify-mongodb'), {
-    url: 'mongodb://localhost/todo',
-    ...opts.mongo
-  })
-
-  fastify.register(require('fastify-cors'))
-  fastify.register(require('fastify-helmet'))
-
-  fastify.setNotFoundHandler(function (request, reply) {
-    reply
-      .code(404)
-      .type('application/json')
-      .send({ message: 'Requested todo item does not exist' })
-  })
+  fastify
+    .register(require('fastify-mongodb'), {
+      url: 'mongodb://localhost/todo',
+      ...opts.mongo
+    })
+    .register(require('fastify-cors'))
+    .register(require('fastify-helmet'))
+    .register(require('fastify-jwt'), {
+      secret: process.env.SECRET || opts.auth.secret
+    })
+    .setNotFoundHandler(function (request, reply) {
+      reply
+        .code(404)
+        .type('application/json')
+        .send({ message: 'Requested todo item does not exist' })
+    })
 
   // Do not touch the following lines
 

@@ -3,10 +3,18 @@
 const schemas = require('../schemas/todo')
 
 module.exports = async function (fastify, opts) {
+  fastify.addHook('preValidation', async (request, reply) => {
+    try {
+      await request.jwtVerify()
+    } catch (err) {
+      reply.send(err)
+    }
+  })
+
   fastify.get(
     '/',
-    { schema: schemas.findAll, preHandler: [fastify.authenticate] },
-    function (request, reply) {
+    { schema: schemas.findAll },
+    async function (request, reply) {
       const limit = parseInt(request.query.limit) || 0
       const offset = parseInt(request.query.offset) || 0
       return this.mongo.db
@@ -21,7 +29,7 @@ module.exports = async function (fastify, opts) {
 
   fastify.get(
     '/:name',
-    { schema: schemas.findOne, preHandler: [fastify.authenticate] },
+    { schema: schemas.findOne },
     async function (request, reply) {
       const item = await this.mongo.db
         .collection('todo')
@@ -37,7 +45,7 @@ module.exports = async function (fastify, opts) {
 
   fastify.post(
     '/',
-    { schema: schemas.insertOne, preHandler: [fastify.authenticate] },
+    { schema: schemas.insertOne },
     async function (request, reply) {
       return this.mongo.db.collection('todo').insertOne(
         Object.assign(request.body, {
@@ -50,7 +58,7 @@ module.exports = async function (fastify, opts) {
 
   fastify.put(
     '/:name',
-    { schema: schemas.updateOne, preHandler: [fastify.authenticate] },
+    { schema: schemas.updateOne },
     async function (request, reply) {
       return this.mongo.db
         .collection('todo')
@@ -63,7 +71,7 @@ module.exports = async function (fastify, opts) {
 
   fastify.delete(
     '/:name',
-    { schema: schemas.deleteOne, preHandler: [fastify.authenticate] },
+    { schema: schemas.deleteOne },
     async function (request, reply) {
       return this.mongo.db
         .collection('todo')

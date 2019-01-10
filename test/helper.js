@@ -29,7 +29,7 @@ beforeEach(async function () {
   await client
     .db(database)
     .collection('users')
-    .insertOne({ name: 'dummy', password: 'dummy' })
+    .insertOne({ username: 'dummy', password: 'dummy' })
 })
 
 tearDown(async function () {

@@ -1,24 +1,24 @@
 'use strict'
 
-const auth = require('basic-auth')
+const schemas = require('../schemas/auth')
 
 module.exports = async function (fastify, opts) {
-  fastify.get('/', async function (request, reply) {
-    const credentials = auth(request) || { name: '', pass: '' }
+  fastify.post('/token', { schema: schemas.token }, async function (request, reply) {
+    const { username, password } = request.body
 
-    const item = await this.mongo.db
+    const user = await this.mongo.db
       .collection('users')
-      .findOne({ name: credentials.name }, { password: credentials.pass })
+      .findOne({ username, password })
 
     if (
-      item == null ||
-      credentials.name !== item.name ||
-      credentials.pass !== item.password
+      user == null ||
+      user.username !== username ||
+      user.password !== password
     ) {
       return new Error('Invalid username or password')
     } else {
       const token = fastify.jwt.sign(
-        { sub: credentials.name },
+        { sub: user.username },
         { expiresIn: '1h' }
       )
       reply.send({ token })

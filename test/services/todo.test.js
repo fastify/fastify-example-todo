@@ -8,8 +8,9 @@ test('test todo list functionality', async (t) => {
     const app = build(t)
 
     const auth = await app.inject({
-      url: '/api/auth',
-      headers: { Authorization: 'Basic ZHVtbXk6ZHVtbXk=' }
+      url: '/api/auth/token',
+      method: 'POST',
+      payload: { username: 'dummy', password: 'dummy' }
     })
 
     const { token } = JSON.parse(auth.payload)
@@ -37,8 +38,9 @@ test('test todo list functionality', async (t) => {
     const app = build(t)
 
     const auth = await app.inject({
-      url: '/api/auth',
-      headers: { Authorization: 'Basic ZHVtbXk6ZHVtbXk=' }
+      url: '/api/auth/token',
+      method: 'POST',
+      payload: { username: 'dummy', password: 'dummy' }
     })
 
     const { token } = JSON.parse(auth.payload)
@@ -79,8 +81,9 @@ test('test todo list functionality', async (t) => {
     const app = build(t)
 
     const auth = await app.inject({
-      url: '/api/auth',
-      headers: { Authorization: 'Basic ZHVtbXk6ZHVtbXk=' }
+      url: '/api/auth/token',
+      method: 'POST',
+      payload: { username: 'dummy', password: 'dummy' }
     })
 
     const { token } = JSON.parse(auth.payload)
@@ -116,8 +119,9 @@ test('test todo list functionality', async (t) => {
     const app = build(t)
 
     const auth = await app.inject({
-      url: '/api/auth',
-      headers: { Authorization: 'Basic ZHVtbXk6ZHVtbXk=' }
+      url: '/api/auth/token',
+      method: 'POST',
+      payload: { username: 'dummy', password: 'dummy' }
     })
 
     const { token } = JSON.parse(auth.payload)
@@ -150,8 +154,9 @@ test('test todo list functionality', async (t) => {
     const app = build(t)
 
     const auth = await app.inject({
-      url: '/api/auth',
-      headers: { Authorization: 'Basic ZHVtbXk6ZHVtbXk=' }
+      url: '/api/auth/token',
+      method: 'POST',
+      payload: { username: 'dummy', password: 'dummy' }
     })
 
     const { token } = JSON.parse(auth.payload)

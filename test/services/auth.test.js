@@ -3,25 +3,28 @@
 const { test } = require('tap')
 const { build } = require('../helper')
 
-test('test auth list functionality', async (t) => {
+test('test user authentication', async (t) => {
   t.test('should return a token', async (t) => {
     const app = build(t)
 
     const res = await app.inject({
-      url: '/api/auth',
-      headers: { Authorization: 'Basic ZHVtbXk6ZHVtbXk=' }
+      url: '/api/auth/token',
+      method: 'POST',
+      payload: { username: 'dummy', password: 'dummy' }
     })
 
-    const payload = JSON.parse(res.payload)
+    const { token } = JSON.parse(res.payload)
 
-    t.ok(payload.token)
+    t.ok(token)
   })
+
   t.test('should give Invalid username or password', async (t) => {
     const app = build(t)
 
     const res = await app.inject({
-      url: '/api/auth',
-      headers: { Authorization: 'Basic ' }
+      url: '/api/auth/token',
+      method: 'POST',
+      payload: { username: '', password: 'wrong' }
     })
 
     const payload = JSON.parse(res.payload)
