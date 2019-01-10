@@ -3,9 +3,7 @@
 const path = require('path')
 const AutoLoad = require('fastify-autoload')
 
-module.exports = function (fastify, opts, next) {
-  // Place here your custom code!
-
+module.exports = function (fastify, opts, next) { 
   fastify
     .register(require('fastify-mongodb'), {
       url: 'mongodb://localhost/todo',
@@ -14,7 +12,7 @@ module.exports = function (fastify, opts, next) {
     .register(require('fastify-cors'))
     .register(require('fastify-helmet'))
     .register(require('fastify-jwt'), {
-      secret: process.env.SECRET || opts.auth.secret
+      secret: opts.auth ? opts.auth.secret : process.env.SECRET || 'youshouldspecifyalongsecret'
     })
     .setNotFoundHandler(function (request, reply) {
       reply
