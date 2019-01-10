@@ -3,7 +3,7 @@
 const schemas = require('../schemas/todo')
 
 module.exports = async function (fastify, opts) {
-  fastify.addHook('preValidation', async (request, reply) => {
+  fastify.addHook('onRequest', async (request, reply) => {
     try {
       await request.jwtVerify()
     } catch (err) {
