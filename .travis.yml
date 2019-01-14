@@ -5,6 +5,12 @@ node_js:
   - "10"
   - "8"
 
+services:
+  - mongodb
+
+before_script:
+  - mongo mydb_test --eval 'db.createUser({user:"dummy",pwd:"dummy",roles:["readWrite"]});'
+
 notifications:
   email:
     on_success: never
