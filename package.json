@@ -12,7 +12,7 @@
     "start": "fastify start -l info app.js",
     "dev": "fastify start -l info -P app.js",
     "lint": "standard --fix | snazzy",
-    "mongo": "docker run -p 27017:27017 --rm mongo:4"
+    "mongo": "docker run -p 27017:27017 -e MONGO_INITDB_DATABASE=todo-test -e MONGO_INITDB_ROOT_USERNAME=dummy -e MONGO_INITDB_ROOT_PASSWORD=dummy --rm mongo:4"
   },
   "keywords": [],
   "author": "Cemre Mengu <cemremengu@gmail.com>",

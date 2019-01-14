@@ -9,7 +9,7 @@ services:
   - mongodb
 
 before_script:
-  - mongo mydb_test --eval 'db.createUser({user:"dummy",pwd:"dummy",roles:["readWrite"]});'
+  - mongo todo-test --eval 'db.createUser({user:"dummy",pwd:"dummy",roles:["readWrite"]});'
 
 notifications:
   email:
