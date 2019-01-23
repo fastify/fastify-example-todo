@@ -11,6 +11,13 @@ module.exports = async function (fastify, opts) {
     }
   })
 
+  fastify.setNotFoundHandler(function (request, reply) {
+    reply
+      .code(404)
+      .type('application/json')
+      .send({ message: 'Requested todo item does not exist' })
+  })
+
   fastify.get(
     '/',
     { schema: schemas.findAll },

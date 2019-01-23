@@ -14,12 +14,6 @@ module.exports = function (fastify, opts, next) {
     .register(require('fastify-jwt'), {
       secret: opts.auth ? opts.auth.secret : process.env.SECRET || 'youshouldspecifyalongsecret'
     })
-    .setNotFoundHandler(function (request, reply) {
-      reply
-        .code(404)
-        .type('application/json')
-        .send({ message: 'Requested todo item does not exist' })
-    })
 
   // Do not touch the following lines
 
