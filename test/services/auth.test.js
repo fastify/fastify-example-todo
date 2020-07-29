@@ -49,7 +49,7 @@ test('test user authentication', async (t) => {
     t.is(res.statusCode, 400)
     t.is(
       payload.message,
-      `body.username should NOT be shorter than 1 characters, body.password should NOT be shorter than 1 characters`
+      `body.username should NOT be shorter than 1 characters`
     )
   })
 
@@ -68,7 +68,7 @@ test('test user authentication', async (t) => {
     t.is(res.statusCode, 400)
     t.is(
       payload.message,
-      `body should have required property 'username', body should have required property 'password'`
+      `body should have required property 'username'`
     )
   })
 })
