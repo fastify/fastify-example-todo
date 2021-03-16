@@ -18,14 +18,14 @@
   "author": "Cemre Mengu <cemremengu@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "fastify": "3.x.x",
-    "fastify-autoload": "3.x.x",
-    "fastify-cli": "2.x.x",
-    "fastify-cors": "3.x.x",
-    "fastify-helmet": "5.x.x",
-    "fastify-jwt": "2.x.x",
-    "fastify-mongodb": "1.x.x",
-    "fastify-plugin": "3.x.x"
+    "fastify": "^2.0.0",
+    "fastify-autoload": "^0.6.0",
+    "fastify-cli": "^0.27.0",
+    "fastify-cors": "^3.0.3",
+    "fastify-helmet": "^3.0.0",
+    "fastify-jwt": "^0.8.0",
+    "fastify-mongodb": "^1.0.0",
+    "fastify-plugin": "^1.4.0"
   },
   "devDependencies": {
     "mongo-clean": "^2.0.0",
