@@ -9,5 +9,5 @@ test('default root route', async (t) => {
   const res = await app.inject({
     url: '/api'
   })
-  t.deepEqual(JSON.parse(res.payload), { message: 'Hello Fastify!' })
+  t.same(JSON.parse(res.payload), { message: 'Hello Fastify!' })
 })

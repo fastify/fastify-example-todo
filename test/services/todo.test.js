@@ -29,8 +29,8 @@ test('test todo list functionality', async (t) => {
 
     const payload = JSON.parse(res.payload)
 
-    t.is(payload.done, false)
-    t.is(payload.name, 'my-first-item')
+    t.equal(payload.done, false)
+    t.equal(payload.name, 'my-first-item')
     t.notSame(payload.timestamp, null)
   })
 
@@ -66,14 +66,14 @@ test('test todo list functionality', async (t) => {
 
     const payload = JSON.parse(res.payload)
 
-    t.is(payload.length, 2)
+    t.equal(payload.length, 2)
 
-    t.is(payload[0].done, false)
-    t.is(payload[0].name, 'my-second-item')
+    t.equal(payload[0].done, false)
+    t.equal(payload[0].name, 'my-second-item')
     t.notSame(payload[0].timestamp, null)
 
-    t.is(payload[1].done, false)
-    t.is(payload[1].name, 'my-first-item')
+    t.equal(payload[1].done, false)
+    t.equal(payload[1].name, 'my-first-item')
     t.notSame(payload[1].timestamp, null)
   })
 
@@ -109,9 +109,9 @@ test('test todo list functionality', async (t) => {
 
     const payload = JSON.parse(res.payload)
 
-    t.is(payload.length, 1)
-    t.is(payload[0].done, true)
-    t.is(payload[0].name, 'my-first-item')
+    t.equal(payload.length, 1)
+    t.equal(payload[0].done, true)
+    t.equal(payload[0].name, 'my-first-item')
     t.notSame(payload[0].timestamp, null)
   })
 
@@ -146,8 +146,8 @@ test('test todo list functionality', async (t) => {
 
     const payload = JSON.parse(res.payload)
 
-    t.is(payload.length, 0)
-    t.deepEquals(payload, [])
+    t.equal(payload.length, 0)
+    t.same(payload, [])
   })
 
   t.test('should give 404 if requested item does not exist', async (t) => {
@@ -168,8 +168,8 @@ test('test todo list functionality', async (t) => {
 
     const payload = JSON.parse(res.payload)
 
-    t.is(res.statusCode, 404)
-    t.deepEquals(payload, {
+    t.equal(res.statusCode, 404)
+    t.same(payload, {
       message: 'Requested todo item does not exist'
     })
   })
@@ -184,7 +184,7 @@ test('test todo list functionality', async (t) => {
 
     const payload = JSON.parse(res.payload)
 
-    t.is(res.statusCode, 500)
-    t.is(payload.message, 'jwt malformed')
+    t.equal(res.statusCode, 500)
+    t.equal(payload.message, 'The token is malformed.')
   })
 })

@@ -1,17 +1,17 @@
 'use strict'
 
 const path = require('path')
-const AutoLoad = require('fastify-autoload')
+const AutoLoad = require('@fastify/autoload')
 
 module.exports = function (fastify, opts, next) {
   fastify
-    .register(require('fastify-mongodb'), {
+    .register(require('@fastify/mongodb'), {
       url: 'mongodb://localhost/todo',
       ...opts.mongo
     })
-    .register(require('fastify-cors'))
-    .register(require('fastify-helmet'))
-    .register(require('fastify-jwt'), {
+    .register(require('@fastify/cors'))
+    .register(require('@fastify/helmet'))
+    .register(require('@fastify/jwt'), {
       secret: opts.auth ? opts.auth.secret : process.env.SECRET || 'youshouldspecifyalongsecret'
     })
 
