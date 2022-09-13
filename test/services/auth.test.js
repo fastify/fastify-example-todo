@@ -30,11 +30,11 @@ test('test user authentication', async (t) => {
     const payload = JSON.parse(res.payload)
 
     t.notOk(payload.token)
-    t.is(res.statusCode, 401)
-    t.is(payload.message, 'Invalid username or password')
+    t.equal(res.statusCode, 401)
+    t.equal(payload.message, 'Invalid username or password')
   })
 
-  test('should not accept empty username or password', async t => {
+  t.test('should not accept empty username or password', async t => {
     const app = build(t)
 
     const res = await app.inject({
@@ -46,14 +46,14 @@ test('test user authentication', async (t) => {
     const payload = JSON.parse(res.payload)
 
     t.notOk(payload.token)
-    t.is(res.statusCode, 400)
-    t.is(
+    t.equal(res.statusCode, 400)
+    t.equal(
       payload.message,
-      `body.username should NOT be shorter than 1 characters`
+      'body/username must NOT have fewer than 1 characters'
     )
   })
 
-  test('should not accept missing username or password', async t => {
+  t.test('should not accept missing username or password', async t => {
     const app = build(t)
 
     const res = await app.inject({
@@ -65,10 +65,10 @@ test('test user authentication', async (t) => {
     const payload = JSON.parse(res.payload)
 
     t.notOk(payload.token)
-    t.is(res.statusCode, 400)
-    t.is(
+    t.equal(res.statusCode, 400)
+    t.equal(
       payload.message,
-      `body should have required property 'username'`
+      'body must have required property \'username\''
     )
   })
 })

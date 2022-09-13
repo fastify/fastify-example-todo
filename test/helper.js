@@ -9,7 +9,7 @@ const App = require('../app')
 
 const clean = require('mongo-clean')
 const { MongoClient } = require('mongodb')
-const { beforeEach, tearDown } = require('tap')
+const { beforeEach, teardown } = require('tap')
 const url = 'mongodb://localhost:27017'
 const database = 'todo-test'
 
@@ -20,8 +20,11 @@ beforeEach(async function () {
     client = await MongoClient.connect(
       url,
       {
-        w: 1,
-        useNewUrlParser: true
+        auth: {
+          username: 'dummy',
+          password: 'dummy'
+        },
+        w: 1
       }
     )
   }
@@ -32,7 +35,7 @@ beforeEach(async function () {
     .insertOne({ username: 'dummy', password: 'dummy' })
 })
 
-tearDown(async function () {
+teardown(async function () {
   if (client) {
     await client.close()
     client = null
@@ -63,7 +66,7 @@ function build (t) {
   app.register(fp(App), config())
 
   // tear down our app after we are done
-  t.tearDown(app.close.bind(app))
+  t.teardown(app.close.bind(app))
 
   return app
 }
