@@ -48,6 +48,9 @@ profile-*
 # webstorm
 .idea
 
+#tap files
+.tap/
+
 # vscode
 .vscode
 *code-workspace
