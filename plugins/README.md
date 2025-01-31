@@ -11,6 +11,6 @@ that will then be used in the rest of your application.
 
 Check out:
 
-* [The hitchhiker's guide to plugins](https://github.com/fastify/fastify/blob/master/docs/Plugins-Guide.md)
+* [The hitchhiker's guide to plugins](https://github.com/fastify/fastify/blob/main/docs/Plugins-Guide.md)
 * [Fastify decorators](https://fastify.dev/docs/latest/Decorators/).
 * [Fastify lifecycle](https://fastify.dev/docs/latest/Lifecycle/).
